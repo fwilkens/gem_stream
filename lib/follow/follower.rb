@@ -1,10 +1,8 @@
 require 'json'
-require 'net/http'
-require 'time'
 
 module Follow
   class Follower
-    SYNCED_IF_WITHIN_SECONDS_OF_PRESENT = 10    
+    SYNCED_IF_WITHIN_SECONDS_OF_PRESENT = 10
     RUBYGEMS_ENDPOINT = 'https://rubygems.org/api/v1/timeframe_versions.json'.freeze
     MAX_RUBY_GEMS_QUERY_RANGE_IN_SECONDS = 6 * 86400 # It's actually 7 days, but use 6 to be safe
 
