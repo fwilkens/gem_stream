@@ -1,10 +1,6 @@
 # GemStream
 
-TODO:
-- rename to something less likely to name clash?
-- write readme
-
-GemStream is a gem that allows you to track the publishing of new gem versions on Rubygem.org.
+GemStream is a gem that allows you to follow along as new gems are published on Rubygems.org.
 
 ## Installation
 
@@ -24,13 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-First, you'll need to configure GemStream to handle events.
+### Configure
+First, you'll need to configure GemStream to handle two events.
 
-```
+Specify a proc for `on_version`, which receives a hash of version attributes as an argument. It will be called once for each ruby gem version that's published.
+
+Specify a proc for `on_sync`, which receives no arguments. It will be called when the stream is up to date.
+
+Example:
+
+```ruby
 GemStream.configure do |c|
-
-
+  c.on_version = -> (version) { handle_version(version) }
+  c.on_sync = -> () { handle_sync }
 end
+```
+
+You can also configure the api call interval. Rubygems.org does have a rate limit (10 req/s), so you can configure an interval as low as `0.1`. If you don't configure an interval, the default interval will be applied (1 second).
+
+### Follow
+
+Once you've handled configuration, you can use GemStream like this:
+
+```ruby
+# start_time being an instance of Time, from which you'd like to begin streaming.
+GemStream::Follower.follow_from(start_time)
 ```
 
 ## Development
