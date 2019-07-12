@@ -1,6 +1,6 @@
 require 'json'
 
-module Follow
+module GemStream
   class Follower
     SYNCED_IF_WITHIN_SECONDS_OF_PRESENT = 10
     RUBYGEMS_ENDPOINT = 'https://rubygems.org/api/v1/timeframe_versions.json'.freeze
@@ -31,7 +31,7 @@ module Follow
     end
 
     def synced
-      Follow.configuration.on_synced.call()
+      GemStream.configuration.on_synced.call()
     end
 
     def query_rubygems(page: 1)
@@ -55,10 +55,10 @@ module Follow
       return if versions.size == 0
 
       versions.each do |version|
-        Follow.configuration.on_version.call(version)
+        GemStream.configuration.on_version.call(version)
       end
 
-      sleep Follow.configuration.api_call_interval
+      sleep GemStream.configuration.api_call_interval
       query_rubygems(page: page + 1)
     end
 

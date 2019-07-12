@@ -1,8 +1,8 @@
-require 'follow/version'
-require 'follow/follower'
-require 'follow/configuration'
+require 'gem_stream/version'
+require 'gem_stream/follower'
+require 'gem_stream/configuration'
 
-module Follow
+module GemStream
   class << self
     attr_writer :configuration
   end

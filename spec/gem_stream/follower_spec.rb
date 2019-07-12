@@ -1,9 +1,9 @@
-RSpec.describe Follow::Follower do
+RSpec.describe GemStream::Follower do
   before do
     @version_count = 0
     @synced = false
 
-    Follow.configure do |c|
+    GemStream.configure do |c|
       c.on_version = -> (version) { @version_count += 1 }
       c.on_synced = -> () { @synced = true }
     end
@@ -19,7 +19,7 @@ RSpec.describe Follow::Follower do
       Timecop.travel start_time
 
       VCR.use_cassette('single_page') do
-        Follow::Follower.follow_from(start_time)
+        GemStream::Follower.follow_from(start_time)
       end
 
       expect(@version_count).to eq(24)
@@ -30,7 +30,7 @@ RSpec.describe Follow::Follower do
       Timecop.travel start_time
 
       VCR.use_cassette('single_page') do
-        Follow::Follower.follow_from(start_time)
+        GemStream::Follower.follow_from(start_time)
       end
 
       expect(@synced).to eq(true)
@@ -41,7 +41,7 @@ RSpec.describe Follow::Follower do
       Timecop.travel start_time
 
       VCR.use_cassette('multi_page') do
-        Follow::Follower.follow_from(start_time)
+        GemStream::Follower.follow_from(start_time)
       end
 
       expect(@version_count).to eq(58)

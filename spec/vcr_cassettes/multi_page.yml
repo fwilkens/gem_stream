@@ -75,7 +75,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '[{"name":"fastlane-plugin-test_center","downloads":176131,"version":"3.8.0.parallelizing.beta.8","version_downloads":23,"platform":"ruby","authors":"Lyndsey
-        Ferguson","info":"    This fastlane plugin includes the following many actions
+        Ferguson","info":"    This fastlane plugin includes the gem_streaming many actions
         to better manage how you test, what you test, and the information you get
         from your tests\n","licenses":["MIT"],"metadata":{},"yanked":false,"sha":"b0b42fdcf2f23948c57020a4aceefd3e811646c446f6e0bbaa808a42cd1634bc","project_uri":"https://rubygems.org/gems/fastlane-plugin-test_center","gem_uri":"https://rubygems.org/gems/fastlane-plugin-test_center-3.8.0.parallelizing.beta.8.gem","homepage_uri":"https://github.com/lyndsey-ferguson/fastlane-plugin-test_center","wiki_uri":null,"documentation_uri":"http://www.rubydoc.info/gems/fastlane-plugin-test_center/3.8.0.parallelizing.beta.8","mailing_list_uri":null,"source_code_uri":null,"bug_tracker_uri":null,"changelog_uri":null,"dependencies":{"development":[{"name":"bundler","requirements":"\u003e=
         0"},{"name":"cocoapods","requirements":"\u003e= 0"},{"name":"fastlane","requirements":"\u003e=
@@ -86,7 +86,7 @@ http_interactions:
         0"}],"runtime":[{"name":"colorize","requirements":"\u003e= 0"},{"name":"json","requirements":"\u003e=
         0"},{"name":"plist","requirements":"\u003e= 0"},{"name":"xcodeproj","requirements":"\u003e=
         0"},{"name":"xctest_list","requirements":"\u003e= 1.1.7"}]},"built_at":"2019-07-11T00:00:00.000Z","created_at":"2019-07-11T13:00:30.648Z","description":"    This
-        fastlane plugin includes the following many actions to better manage how you
+        fastlane plugin includes the gem_streaming many actions to better manage how you
         test, what you test, and the information you get from your tests\n","downloads_count":23,"number":"3.8.0.parallelizing.beta.8","summary":"Makes
         testing your iOS app easier","rubygems_version":"\u003e 1.3.1","ruby_version":"\u003e=
         0","prerelease":true,"requirements":[]},{"name":"dependabot-common","downloads":78671,"version":"0.111.4","version_downloads":37,"platform":"ruby","authors":"Dependabot","info":"Automated

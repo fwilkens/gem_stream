@@ -1,15 +1,17 @@
-# Follow
+# GemStream
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/follow`. To experiment with that code, run `bin/console` for an interactive prompt.
+TODO:
+- rename to something less likely to name clash?
+- write readme
 
-TODO: Delete this and the text above, and describe your gem
+GemStream is a gem that allows you to track the publishing of new gem versions on Rubygem.org.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'follow'
+gem 'gem_stream'
 ```
 
 And then execute:
@@ -18,11 +20,18 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install follow
+    $ gem install gem_stream
 
 ## Usage
 
-TODO: Write usage instructions here
+First, you'll need to configure GemStream to handle events.
+
+```
+GemStream.configure do |c|
+
+
+end
+```
 
 ## Development
 
@@ -32,4 +41,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/follow.
+Bug reports and pull requests are welcome on GitHub at https://github.com/fwilkens/gem_stream.

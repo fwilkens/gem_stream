@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    follow (0.1.0)
+    gem_stream (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -40,7 +40,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  follow!
+  gem_stream!
   rake (~> 10.0)
   rspec (~> 3.0)
   timecop (~> 0.9)

@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "follow"
+require "gem_stream"
 require "timecop"
 require "vcr"
 
