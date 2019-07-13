@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Fletcher Wilkens"]
   spec.email         = ["fletcher.wilkens1@gmail.com"]
 
-  spec.summary       = "GemStream rubygems as new gems are published."
+  spec.summary       = "Stream new gem versions as they are published."
   spec.homepage      = "https://github.com/fwilkens/gem_stream"
   spec.metadata      = { "source_code_uri" => "https://github.com/fwilkens/gem_stream" }
 
