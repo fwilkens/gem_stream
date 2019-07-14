@@ -40,7 +40,8 @@ module GemStream
 
     def query_rubygems(page: 1)
       uri = URI(RUBYGEMS_ENDPOINT)
-      uri.query = URI.encode_www_form(query_params(page))
+      params = query_params(page)
+      uri.query = URI.encode_www_form(params)
       response = Net::HTTP.get_response(uri)
 
       if response.code != '200'
