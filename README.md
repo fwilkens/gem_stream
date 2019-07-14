@@ -25,14 +25,14 @@ First, you'll need to configure GemStream to handle two events.
 
 Specify a proc for `on_version`, which receives a hash of version attributes as an argument. It will be called once for each ruby gem version that's published.
 
-Specify a proc for `on_sync`, which receives no arguments. It will be called when the stream is up to date.
+Specify a proc for `on_synced`, which receives no arguments. It will be called when the stream is up to date.
 
 Example:
 
 ```ruby
 GemStream.configure do |c|
   c.on_version = -> (version) { handle_version(version) }
-  c.on_sync = -> () { handle_sync }
+  c.on_synced = -> () { handle_sync }
 end
 ```
 

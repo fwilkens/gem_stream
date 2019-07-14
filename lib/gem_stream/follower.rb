@@ -1,4 +1,6 @@
 require 'json'
+require 'time'
+require 'net/http'
 
 module GemStream
   class Follower
@@ -15,19 +17,18 @@ module GemStream
     end
 
     def follow
-      query_rubygems
-
-      if synced?
-        synced
-      else
-        increment_query_window && query_rubygems
+      while keep_streaming?
+        query_rubygems
+        increment_query_window
       end
+
+      synced
     end
 
     private
 
-    def synced?
-      (Time.now - @synced_up_to_time) <= SYNCED_IF_WITHIN_SECONDS_OF_PRESENT
+    def keep_streaming?
+      (Time.now - @synced_up_to_time) > SYNCED_IF_WITHIN_SECONDS_OF_PRESENT
     end
 
     def synced
