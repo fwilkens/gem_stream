@@ -4,7 +4,6 @@ require 'net/http'
 
 module GemStream
   class Follower
-    SYNCED_IF_WITHIN_SECONDS_OF_PRESENT = 10
     RUBYGEMS_ENDPOINT = 'https://rubygems.org/api/v1/timeframe_versions.json'.freeze
     MAX_RUBY_GEMS_QUERY_RANGE_IN_SECONDS = 6 * 86400 # It's actually 7 days, but use 6 to be safe
 
@@ -12,8 +11,12 @@ module GemStream
       self.new(start_time).follow
     end
 
-    def initialize(synced_up_to_time)
-      @synced_up_to_time = synced_up_to_time
+    def initialize(start_time)
+      @synced_up_to_time = start_time
+      @on_version = GemStream.configuration.on_version.dup
+      @on_synced = GemStream.configuration.on_synced.dup
+      @api_call_interval = GemStream.configuration.api_call_interval.dup
+      @keep_streaming = true
     end
 
     def follow
@@ -28,22 +31,16 @@ module GemStream
     private
 
     def keep_streaming?
-      (Time.now - @synced_up_to_time) > SYNCED_IF_WITHIN_SECONDS_OF_PRESENT
+      @keep_streaming
     end
 
     def synced
-      GemStream.configuration.on_synced.call()
+      @on_synced.call()
     end
 
     def query_rubygems(page: 1)
-      params = {
-        from: @synced_up_to_time.iso8601,
-        to: (@synced_up_to_time + MAX_RUBY_GEMS_QUERY_RANGE_IN_SECONDS).iso8601,
-        page: page
-      }
-
       uri = URI(RUBYGEMS_ENDPOINT)
-      uri.query = URI.encode_www_form(params)
+      uri.query = URI.encode_www_form(query_params(page))
       response = Net::HTTP.get_response(uri)
 
       if response.code != '200'
@@ -53,13 +50,16 @@ module GemStream
 
       versions = JSON.parse(response.body)
 
-      return if versions.size == 0
-
-      versions.each do |version|
-        GemStream.configuration.on_version.call(version)
+      if versions.size == 0
+        @keep_streaming = page == 1
+        return
       end
 
-      sleep GemStream.configuration.api_call_interval
+      versions.each do |version|
+        @on_version.call(version)
+      end
+
+      sleep @api_call_interval
       query_rubygems(page: page + 1)
     end
 
@@ -68,6 +68,14 @@ module GemStream
         (@synced_up_to_time + MAX_RUBY_GEMS_QUERY_RANGE_IN_SECONDS),
         Time.now
       ].min
+    end
+
+    def query_params(page)
+      {
+        from: @synced_up_to_time.iso8601,
+        to: (@synced_up_to_time + MAX_RUBY_GEMS_QUERY_RANGE_IN_SECONDS).iso8601,
+        page: page,
+      }
     end
   end
 end

@@ -17,19 +17,19 @@ module GemStream
       end
     end
 
-    def on_version=(hook)
-      if hook.is_a?(Proc)
-        @on_version = hook
+    def on_version=(proc)
+      if proc.is_a?(Proc)
+        @on_version = proc
       else
-        raise ArgumentError, "Please specify a Proc for the on_version hook"
+        raise ArgumentError, "Please specify a Proc for the on_version proc"
       end
     end
 
-    def on_synced=(hook)
-      if hook.is_a?(Proc)
-        @on_synced = hook
+    def on_synced=(proc)
+      if proc.is_a?(Proc)
+        @on_synced = proc
       else
-        raise ArgumentError, "Please specify a Proc for the on_synced hook"
+        raise ArgumentError, "Please specify a Proc for the on_synced proc"
       end
     end
   end

@@ -31,8 +31,8 @@ Example:
 
 ```ruby
 GemStream.configure do |c|
-  c.on_version = -> (version) { handle_version(version) }
-  c.on_synced = -> () { handle_sync }
+  c.on_version = -> (version) { YourVersionHandler.handle(version) }
+  c.on_synced = -> () { YourSyncHandler.handle }
 end
 ```
 
