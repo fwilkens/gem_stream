@@ -4,11 +4,13 @@ require 'net/http'
 
 module GemStream
   class Follower
+    attr_reader :synced_up_to_time
+
     RUBYGEMS_ENDPOINT = 'https://rubygems.org/api/v1/timeframe_versions.json'.freeze
     MAX_RUBY_GEMS_QUERY_RANGE_IN_SECONDS = 6 * 86400 # It's actually 7 days, but use 6 to be safe
 
     def self.follow_from(start_time)
-      self.new(start_time).follow
+      self.new(start_time).tap(&:follow)
     end
 
     def initialize(start_time)
@@ -45,8 +47,8 @@ module GemStream
       response = Net::HTTP.get_response(uri)
 
       if response.code != '200'
-        puts "Got status #{response.code} from rubygems for #{RUBYGEMS_ENDPOINT} with options: #{params.inspect}"
-        return
+        msg = "Got status #{response.code} from rubygems for #{RUBYGEMS_ENDPOINT} with options: #{params.inspect}"
+        raise GemStream::ApiError, msg
       end
 
       versions = JSON.parse(response.body)

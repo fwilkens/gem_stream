@@ -1,4 +1,5 @@
 require 'gem_stream/version'
+require 'gem_stream/api_error'
 require 'gem_stream/follower'
 require 'gem_stream/configuration'
 

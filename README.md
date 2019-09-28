@@ -47,6 +47,10 @@ Once you've handled configuration, you can use GemStream like this:
 GemStream::Follower.follow_from(start_time)
 ```
 
+### Errors
+
+If a Rubygems api error is encountered, GemStream will raise a `GemStream::ApiError`. In most cases, you can rescue this error and start a new follower from where you left of at. To get the time that you left off at, you can check the `GemStream::Follower` instance `synced_up_to_time` attribute. Note that restarting from this time may replay some `on_version` callbacks, as `synced_up_to_time` only represents the beginning of the last time frame you queried, not the published time of the most recent gem version you received back.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
